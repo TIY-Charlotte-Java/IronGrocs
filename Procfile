@@ -1,1 +1,1 @@
-web: java -jar Grocs-1.0-SNAPSHOT.jar
+web: java -jar target/Grocs-1.0-SNAPSHOT.jar
