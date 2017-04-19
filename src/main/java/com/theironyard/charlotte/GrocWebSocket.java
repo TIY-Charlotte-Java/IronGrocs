@@ -1,5 +1,7 @@
 package com.theironyard.charlotte;
 
+import jodd.json.JsonParser;
+import jodd.json.JsonSerializer;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -7,6 +9,8 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -14,10 +18,14 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class GrocWebSocket {
     // Store sessions if you want to, for example, broadcast a message to all users
     private static final Queue<Session> sessions = new ConcurrentLinkedQueue<>();
+    private static final List<Food> foodList = new ArrayList<>();
+
 
     @OnWebSocketConnect
-    public void connected(Session session) {
+    public void connected(Session session) throws IOException {
         sessions.add(session);
+
+        broadcastFoods();
     }
 
     @OnWebSocketClose
@@ -27,8 +35,21 @@ public class GrocWebSocket {
 
     @OnWebSocketMessage
     public void message(Session session, String message) throws IOException {
-        System.out.println("Got: " + message);   // Print message
-        session.getRemote().sendString(message); // and send it back
+        Command c = new JsonParser().parse(message, Command.class);
+
+        if (c.getCommand().equals("add-item")) {
+            foodList.add(new Food(c.getName(), c.getQuantity()));
+        }
+
+        broadcastFoods();
+    }
+
+    private void broadcastFoods() throws IOException {
+        String jsonMessage = new JsonSerializer().serialize(foodList);
+
+        for (Session sess : sessions) {
+            sess.getRemote().sendString(jsonMessage); // and send it back
+        }
     }
 
 }
