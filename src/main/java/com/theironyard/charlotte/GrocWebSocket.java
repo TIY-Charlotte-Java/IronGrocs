@@ -41,6 +41,20 @@ public class GrocWebSocket {
             foodList.add(new Food(c.getName(), c.getQuantity()));
         }
 
+        if (c.getCommand().equals("find-item")) {
+            // find whatever the crap item luke is talking about
+            // then update the "Found" field on the "food" to whatever "luke"
+            for (Food f : foodList) {
+                if (f.getId() == c.getFoodId()) {
+                    f.setFound(c.isFound());
+                    break;
+                }
+            }
+
+            // wants to do.
+
+        }
+
         broadcastFoods();
     }
 

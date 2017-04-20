@@ -8,15 +8,25 @@ public class Command {
     private String name;
     private int foodId;
     private int quantity;
+    private boolean found;
 
     public Command() {
     }
 
-    public Command(String command, String name, int foodId, int quantity) {
+    public Command(String command, String name, int foodId, int quantity, boolean found) {
         this.command = command;
         this.name = name;
         this.foodId = foodId;
         this.quantity = quantity;
+        this.found = found;
+    }
+
+    public boolean isFound() {
+        return found;
+    }
+
+    public void setFound(boolean found) {
+        this.found = found;
     }
 
     public String getCommand() {
