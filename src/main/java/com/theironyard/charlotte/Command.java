@@ -6,7 +6,7 @@ package com.theironyard.charlotte;
 public class Command {
     private String command;
     private String name;
-    private int foodId;
+    private int id;
     private int quantity;
     private boolean found;
 
@@ -16,7 +16,7 @@ public class Command {
     public Command(String command, String name, int foodId, int quantity, boolean found) {
         this.command = command;
         this.name = name;
-        this.foodId = foodId;
+        this.id = foodId;
         this.quantity = quantity;
         this.found = found;
     }
@@ -45,12 +45,12 @@ public class Command {
         this.name = name;
     }
 
-    public int getFoodId() {
-        return foodId;
+    public int getId() {
+        return id;
     }
 
-    public void setFoodId(int foodId) {
-        this.foodId = foodId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getQuantity() {

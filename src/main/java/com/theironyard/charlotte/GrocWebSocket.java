@@ -45,7 +45,7 @@ public class GrocWebSocket {
             // find whatever the crap item luke is talking about
             // then update the "Found" field on the "food" to whatever "luke"
             for (Food f : foodList) {
-                if (f.getId() == c.getFoodId()) {
+                if (f.getId() == c.getId()) {
                     f.setFound(c.isFound());
                     break;
                 }
