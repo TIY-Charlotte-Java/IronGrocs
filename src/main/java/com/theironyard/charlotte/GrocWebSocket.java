@@ -61,6 +61,8 @@ public class GrocWebSocket {
     private void broadcastFoods() throws IOException {
         String jsonMessage = new JsonSerializer().serialize(foodList);
 
+        System.out.println(jsonMessage);
+
         for (Session sess : sessions) {
             sess.getRemote().sendString(jsonMessage); // and send it back
         }
