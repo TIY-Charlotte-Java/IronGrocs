@@ -4,7 +4,7 @@ package com.theironyard.charlotte;
  * Created by Ben on 4/19/17.
  */
 public class Food {
-    private int STATIC_ID = 0;
+    private static int STATIC_ID = 0;
 
     private int id;
     private String name;
