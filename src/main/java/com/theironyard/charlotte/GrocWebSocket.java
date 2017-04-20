@@ -38,21 +38,21 @@ public class GrocWebSocket {
         Command c = new JsonParser().parse(message, Command.class);
 
         if (c.getCommand().equals("add-item")) {
-            foodList.add(new Food(c.getName(), c.getQuantity()));
+            if (c.getQuantity() > 0 && !c.getName().isEmpty()) {
+                foodList.add(new Food(c.getName(), c.getQuantity()));
+            }
         }
 
         if (c.getCommand().equals("find-item")) {
             // find whatever the crap item luke is talking about
             // then update the "Found" field on the "food" to whatever "luke"
+            // wants to do.
             for (Food f : foodList) {
                 if (f.getId() == c.getId()) {
                     f.setFound(c.isFound());
                     break;
                 }
             }
-
-            // wants to do.
-
         }
 
         broadcastFoods();
