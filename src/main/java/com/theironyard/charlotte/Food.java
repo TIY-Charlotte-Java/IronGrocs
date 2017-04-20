@@ -16,6 +16,7 @@ public class Food {
     }
 
     public Food(String name, int quantity) {
+        this();
         this.name = name;
         this.quantity = quantity;
         this.found = false;
